@@ -1,0 +1,46 @@
+git init //初始化
+git add readme.txt //将readme.txt加入到缓存区
+git commit -m "注释" //将加入readme.txt到版本库
+git status 
+git diff
+git reset --hard HEAD^ //HEAD^^ HEAD~2 或者直接加id。 回滚到旧版本
+git log //查看提交的版本
+git reflog //查看操作记录和id
+git checkout -- readme.txt //撤销修改,一键还原
+git rm test.txt   git commit -m "remove test.txt"//删除版本库的文件
+git checkout -b dev //创建dev分支，然后切换到dev分支
+git checkout dev //切换到dev分支
+git branch //查看当前分支
+git merge dev//用于合并指定分支到当前分支
+git branch -d dev //删除分支
+git stash //隐藏分支，修复bug
+git stash pop//恢复分支，删除stash。修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除。
+//开发一个新feature，最好新建一个分支；如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+git remote -v//查看远程库的信息，远程仓库的默认名称是origin。
+
+git clone git@github.com:1874522282/learngit.git
+git checkout -b dev origin/dev //在dev分支上开发，就必须创建远程origin的dev分支到本地。（有origin分支才行）
+git branch --set-upstream-to=branch-name origin/branch-name//建立本地分支和远程分支的关联
+git pull //用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送
+
+git tag v1.0//为当前分支打上标签
+git tag//查看标签
+git tag v0.9 f52c633//为之前id分支打上标签
+git show v0.9//查看标签信息
+git tag -a v0.1 -m "version 0.1 released" 1094adb//为指定id创建带说明的标签
+git tag -d v0.1//删除本地标签
+git push origin v1.0 //推送标签到远程
+git push origin --tags//推送所有标签到远程
+
+zz
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+//冲突支
+//上传到github
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:1874522282/learngit.git
+git push -u origin master（以后上传用git push origin master）
+

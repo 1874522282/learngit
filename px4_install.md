@@ -17,10 +17,11 @@ cd px4/Firmware/
 git submodule update --init --recursive
 # step8
 make px4fmu-v2_default
-#step9
+# step9
  sudo apt install python3-pip
 sudo apt remove python3-pip
-#step10
-#Exception in thread "main" java.awt.AWTError: Assistive Technology not found: org.GNOME.Accessibility.AtkWrapper
+# step10
+# Exception in thread "main" java.awt.AWTError: Assistive Technology not found: org.GNOME.Accessibility.AtkWrapper
 sudo gedit /etc/java-8-openjdk/accessibility.properties
-#assistive_technologies=org.GNOME.Accessibility.AtkWrapper
+# 注释
+# assistive_technologies=org.GNOME.Accessibility.AtkWrapper

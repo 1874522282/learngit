@@ -28,3 +28,5 @@ make px4_sitl gazebo
 sudo gedit /etc/java-8-openjdk/accessibility.properties
 # 注释掉
 #assistive_technologies=org.GNOME.Accessibility.AtkWrapper
+# 仿真出现reflight Fail: Compass #0 uncalibrated导致无法解锁
+ rm ~/.ros/eeprom/parameters

@@ -15,3 +15,8 @@
 sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo add-apt-repository ppa:xorg-edgers/ppa
 sudo apt-get update
+
+
+# 开机检测到系统问题
+
+sudo gedit /etc/default/apport

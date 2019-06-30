@@ -24,10 +24,16 @@ sudo gedit /etc/default/apport
 
 # 下载好opencv 和opencv_contrib 版本号要一致
 
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_C_EXAMPLES=ON \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D OPENCV_GENERATE_PKGCONFIG=ON \
+    -D OPENCV_ENABLE_NONFREE=ON\
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules ~/opencv\
+    -D BUILD_EXAMPLES=ON ..
 
-
-cmake -D BUILD_TIFF=ON -D WITH_CUDA=OFF -D ENABLE_AVX=OFF -D WITH_OPENGL=OFF -D WITH_OPENCL=OFF -D WITH_IPP=OFF -D WITH_TBB=ON -D BUILD_TBB=ON -D WITH_EIGEN=OFF -D WITH_V4L=OFF -D WITH_VTK=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=~/opencv/opencv_contrib/modules ~/opencv
-
+cmake -D BUILD_TIFF=ON -D WITH_CUDA=OFF -D ENABLE_AVX=OFF -D WITH_OPENGL=OFF -D WITH_OPENCL=OFF -D WITH_IPP=OFF -D WITH_TBB=ON -D BUILD_TBB=ON -D WITH_EIGEN=OFF -D WITH_V4L=OFF -D WITH_VTK=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules ~/opencv\
 
 	make -j8
 	sudo make install
@@ -73,5 +79,11 @@ sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcod
  	cvWaitKey 改成 waitKey
 # cmakelist.txt
 set(OpenCV_DIR "/usr/local/lib/cmake/opencv4")
+# ubuntu opencv fatal error: Eigen/Core: 没有那个文件或目录
+cd /usr/include
+sudo ln -sf eigen3/Eigen Eigen
 
+
+#卸载
+sudo rm -r /usr/local/include/opencv4  /usr/local/share/opencv4  /usr/local/bin/opencv* /usr/local/lib/libopencv*
 

@@ -87,3 +87,23 @@ sudo ln -sf eigen3/Eigen Eigen
 #卸载
 sudo rm -r /usr/local/include/opencv4  /usr/local/share/opencv4  /usr/local/bin/opencv* /usr/local/lib/libopencv*
 
+
+
+# 开机自启动
+sudo crontab -e
+sudo select-editor 
+选择nano
+ctrl+o,保存
+ctrl+x 退出
+@reboot home/nuc/catkin_ws/autoboot.sh
+
+sudo chmod a+x autoboot.sh
+
+
+sudo apt-get install screen
+sudo screen -ls
+screen -r navigator
+sudo pkill screen
+ctrl+a+d 退出screen
+
+

@@ -46,7 +46,80 @@ sudo cp -r GeographicLib /usr/share/
 
 ############################ laser related ##################################
 sudo apt-get install ros-kinetic-laser-proc ros-kinetic-urg*
+sudo apt-get install ros-kinetic-octomap*
+sudo apt install pcl-tools
+sudo add-apt-repository ppa:zarquon42/meshlab
+sudo apt-get update
+sudo apt-get install meshlab
 
 
 
+############################ DenseSurfelMapping ORB_SLAM2 ##################################
+git clone https://github.com/HKUST-Aerial-Robotics/DenseSurfelMapping.git
+sudo apt-get -y install libglew-dev cmake
+
+git clone https://github.com/stevenlovegrove/Pangolin.git
+cd Pangolin
+mkdir build
+cd build
+cmake ..
+cmake --build .
+sudo make install
+
+
+# 1 in ORB_SLAM2/CMakeLists.txt
+
+find_package(OpenCV 3.0 QUIET)
+if(NOT OpenCV_FOUND)
+   find_package(OpenCV 2.4.3 QUIET)
+   if(NOT OpenCV_FOUND)
+      message(FATAL_ERROR "OpenCV > 2.4.3 not found.")
+   endif()
+endif()
+
+
+# in ORB_SLAM2/Examples/ROS/ORB_SLAM2/CMakeLists.txt
+
+find_package(OpenCV 3.0 QUIET)
+if(NOT OpenCV_FOUND)
+   find_package(OpenCV 2.4.3 QUIET)
+   if(NOT OpenCV_FOUND)
+      message(FATAL_ERROR "OpenCV > 2.4.3 not found.")
+   endif()
+endif()
+
+# 2 error /usr/lib/x86_64-linux-gnu/libboost_system.so.1.54.0:-1: error: error adding symbols: DSO missing add
+
+-lboost_system
+
+# 3  in ~/DenseSurfelMapping/ORB_SLAM2/Examples/ROS/ORB_SLAM2/src/ros_stereo.cc   line 67
+change RGBD to STEREO
+# 4  orb_kitti_launch.sh
+change path to /home/cg/rtk_ws/src/DenseSurfelMapping
+# 5 in /home/cg/rtk_ws/src/surfel_fusion/launch/kitti_orb.launch
+change path name to <param name="save_name" value="/home/cg/bag/kitti00_loop" /> 
+# 6 in /home/cg/rtk_ws/src/kitti_publisher/scripts/publisher.py
+change path_name = "/home/cg/bag/00"
+
+
+chmod +x build.sh
+./build.sh
+chmod +x build_ros.sh
+
+
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/home/cg/rtk_ws/src/DenseSurfelMapping/ORB_SLAM2/Examples/ROS
+./build_ros.sh
+############################ in ./bashrc  ##################################
+# source ~/cg_ws/devel/setup.bash
+#source ~/MYNT-EYE-D-SDK/wrappers/ros/devel/setup.bash
+source ~/rtk_ws/devel/setup.bash
+# export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/cg_ws/src/avoidance/sim/models
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/rtk_ws/src/avoidance/sim/models
+
+source ~/px4/Firmware/Tools/setup_gazebo.bash ~/px4/Firmware ~/px4/Firmware/build/px4_sitl_default
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/px4/Firmware
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/px4/Firmware/Tools/sitl_gazebo
+
+export TURTLEBOT3_MODEL=burger
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/cg_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models
 

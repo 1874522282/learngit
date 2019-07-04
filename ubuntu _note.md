@@ -107,3 +107,5 @@ sudo pkill screen
 ctrl+a+d 退出screen
 
 
+
+

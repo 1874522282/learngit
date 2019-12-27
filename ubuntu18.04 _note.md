@@ -23,6 +23,17 @@ sudo gedit /etc/default/apport
 
 
 # 下载好opencv 和opencv_contrib 版本号要一致
+cd ~/opencv_build/opencv
+mkdir build
+cd build
+
+
+(mkdir installed)
+
+
+
+##  -D CMAKE_INSTALL_PREFIX=~/opencv_build/opencv/build/installed
+
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
@@ -33,13 +44,26 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules ~/opencv\
     -D BUILD_EXAMPLES=ON ..
 
-cmake -D BUILD_TIFF=ON -D WITH_CUDA=OFF -D ENABLE_AVX=OFF -D WITH_OPENGL=OFF -D WITH_OPENCL=OFF -D WITH_IPP=OFF -D WITH_TBB=ON -D BUILD_TBB=ON -D WITH_EIGEN=OFF -D WITH_V4L=OFF -D WITH_VTK=OFF -D BUILD_TESTS=ON -D BUILD_PERF_TESTS=ON -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules ~/opencv -D BUILD_EXAMPLES=ON ..\
 
-	make -j8
-	sudo make install
-	sudo ldconfig
 
-	pkg-config --modversion opencv
+
+cmake -D BUILD_TIFF=ON -D WITH_CUDA=OFF -D OPENCV_GENERATE_PKGCONFIG=ON -D ENABLE_AVX=OFF -D WITH_OPENGL=OFF -D WITH_OPENCL=OFF -D WITH_IPP=OFF -D WITH_TBB=ON -D BUILD_TBB=ON -D WITH_EIGEN=OFF -D WITH_V4L=OFF -D WITH_VTK=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=~/opencv_build/opencv/build/installed -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules ~/opencv -D BUILD_EXAMPLES=OFF ..\
+
+make -j8
+sudo make install
+
+sudo gedit /etc/ld.so.conf.d/opencv.conf 
+/home/cg/opencv_build/opencv/build/installed/lib
+sudo ldconfig
+
+gedit ~/.bashrc
+
+export PKG_CONFIG_PATH=~/opencv_build/opencv/build/installed/lib/pkgconfig
+export LD_LIBRARY_PATH=~/opencv_build/opencv/build/installed/lib
+
+source ~/.bashrc 
+
+pkg-config --modversion opencv
 # 相关依赖
 sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 

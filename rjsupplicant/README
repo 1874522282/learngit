@@ -5,7 +5,7 @@
 	如果rjsupplicant.sh 脚本无法运行（非可执行文件），请运行以下命令: "sudo chmod +x ./rjsupplicant.sh"
 
 
-sudo ./rjsupplicant.sh -d 1 -u 13067406151 -p shsctg12231223
+sudo ./rjsupplicant.sh -d 1 -u 13067406151 -p shsctg1223
 
 sudo service network-manager restart
 

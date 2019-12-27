@@ -53,6 +53,8 @@ sudo apt-get update
 sudo apt-get install meshlab
 
 
+pcl_viewer demo.pcd
+pcl_pcd2ply demo.pcd demo.ply
 
 ############################ DenseSurfelMapping ORB_SLAM2 ##################################
 git clone https://github.com/HKUST-Aerial-Robotics/DenseSurfelMapping.git
@@ -109,6 +111,15 @@ chmod +x build_ros.sh
 
 export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/home/cg/rtk_ws/src/DenseSurfelMapping/ORB_SLAM2/Examples/ROS
 ./build_ros.sh
+
+
+#run
+cd ~/rtk_ws/src/DenseSurfelMapping/ORB_SLAM2 
+./orb_kitti_launch.sh
+
+roslaunch surfel_fusion kitti_orb.launch
+rosrun kitti_publisher publisher.py 
+
 ############################ in ./bashrc  ##################################
 # source ~/cg_ws/devel/setup.bash
 #source ~/MYNT-EYE-D-SDK/wrappers/ros/devel/setup.bash

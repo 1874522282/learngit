@@ -33,41 +33,44 @@ cd build
 
 
 ##  -D CMAKE_INSTALL_PREFIX=~/opencv_build/opencv/build/installed
+##  -D CMAKE_INSTALL_PREFIX=/usr/local
 
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D CMAKE_INSTALL_PREFIX=~/opencv_build/opencv/build/installed \
     -D INSTALL_C_EXAMPLES=ON \
     -D INSTALL_PYTHON_EXAMPLES=ON \
     -D OPENCV_GENERATE_PKGCONFIG=ON \
     -D OPENCV_ENABLE_NONFREE=ON\
     -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules ~/opencv\
-    -D BUILD_EXAMPLES=ON ..
-
-
-
-
-cmake -D BUILD_TIFF=ON -D WITH_CUDA=OFF -D OPENCV_GENERATE_PKGCONFIG=ON -D ENABLE_AVX=OFF -D WITH_OPENGL=OFF -D WITH_OPENCL=OFF -D WITH_IPP=OFF -D WITH_TBB=ON -D BUILD_TBB=ON -D WITH_EIGEN=OFF -D WITH_V4L=OFF -D WITH_VTK=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=~/opencv_build/opencv/build/installed -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules ~/opencv -D BUILD_EXAMPLES=OFF ..\
+    -D BUILD_EXAMPLES=OFF ..
 
 make -j8
 sudo make install
 
-sudo gedit /etc/ld.so.conf.d/opencv.conf 
+sudo gedit /etc/ld.so.conf.d/opencv4.conf 
 /home/cg/opencv_build/opencv/build/installed/lib
 sudo ldconfig
 
 gedit ~/.bashrc
 
-export PKG_CONFIG_PATH=~/opencv_build/opencv/build/installed/lib/pkgconfig
-export LD_LIBRARY_PATH=~/opencv_build/opencv/build/installed/lib
+#opencv env
+export PKG_CONFIG_PATH=~/opencv_build/opencv/build/installed/lib/pkgconfig:$PKG_CONFIG_PATH
+export LD_LIBRARY_PATH=~/opencv_build/opencv/build/installed/lib:$LD_LIBRARY_PATH 
+export PYTHONPATH=~/opencv_build/opencv/build/installed/lib/python3.5/dist-packages:$PYTHONPATH
 
 source ~/.bashrc 
 
 pkg-config --modversion opencv
+
+
+# cmakelist.txt
+set(OpenCV_DIR "~/opencv_build/opencv/build/installed/lib/cmake/opencv4")
 # 相关依赖
 sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 
 	 sudo apt-get install python3.5-dev python3-numpy libtbb2 libtbb-dev
+         sudo apt-get install python-dev python-numpy python3-dev python3-numpy
 
 	 sudo apt-get install libjpeg-dev libpng-dev libtiff5-dev libjasper-dev libdc1394-22-dev libeigen3-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libopenexr-dev libgstreamer-plugins-base1.0-dev libavutil-dev libavfilter-dev libavresample-dev
 
@@ -77,6 +80,10 @@ sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcod
 	sudo apt-get install libjasper1 libjasper-dev
 
 # opencv安装遇到的问题
+#ImportError: /opt/ros/kinetic/lib/python2.7/dist-packages/cv2.so: undefined symbol: PyCObject_Type
+
+export PYTHONPATH=~/opencv_build/opencv/build/installed/lib/python3.5/dist-packages:$PYTHONPATH
+
 #The imported target "vtkRenderingPythonTkWidgets" references the file "/usr/lib/x86_64-linux-gnu/libvtkRenderingPythonTkWidgets.so"
 	ls -l  /usr/lib/python2.7/dist-packages/vtk/libvtkRendering*
 	sudo ln -s /usr/lib/python2.7/dist-packages/vtk/libvtkRenderingPythonTkWidgets.x86_64-linux-gnu.so /usr/lib/x86_64-linux-gnu/libvtkRenderingPythonTkWidgets.so

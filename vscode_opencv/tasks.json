@@ -1,0 +1,40 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "command": "g++",
+    "args": [
+        "-g", "-std=c++11", "${file}", "-o", "${fileBasenameNoExtension}.o",//设置动态链接库
+        "-I", "/home/cg/opencv_build/opencv/build/installed/include/opencv4",//绝对路径，头文件目录
+        "-L", "/home/cg/opencv_build/opencv/build/installed/lib",//绝对路径，库文件目录
+        "-l", "opencv_core",//库文件，不加后缀
+        "-l", "opencv_imgproc",
+        "-l", "opencv_imgcodecs",
+        "-l", "opencv_video",
+        "-l", "opencv_ml",
+        "-l", "opencv_highgui",
+        "-l", "opencv_objdetect",
+        "-l", "opencv_flann",
+        "-l", "opencv_photo",
+        "-l", "opencv_videoio"
+    ],// 编译命令参数
+    "problemMatcher":{
+        "owner": "cpp",
+        "fileLocation":[
+            "relative",
+            "${workspaceFolder}"
+        ],
+        "pattern":[
+            {
+                "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+                "file": 1,
+                "location": 2,
+                "message": 3
+            }
+        ]
+    },
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    }
+}

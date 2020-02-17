@@ -21,6 +21,28 @@ sudo apt-get update
 
 sudo gedit /etc/default/apport
 
+############opencv安装###############
+# 相关依赖
+sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+
+	 sudo apt-get install python3.5-dev python3-numpy libtbb2 libtbb-dev
+         sudo apt-get install python-dev python-numpy python3-dev python3-numpy
+
+	 sudo apt-get install libjpeg-dev libpng-dev libtiff5-dev libjasper-dev libdc1394-22-dev libeigen3-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libopenexr-dev libgstreamer-plugins-base1.0-dev libavutil-dev libavfilter-dev libavresample-dev
+
+
+sudo apt-get install libdc1394-22-dev libeigen3-dev libtheora-dev libxvidcore-dev libx264-dev sphinx-common libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libavutil-dev libavfilter-dev libavresample-dev
+
+
+	sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+	sudo apt-get update
+	sudo apt-get install libjasper1 libjasper-dev
+
+#我们发现在安装libgtk2.0-dev的软件包的时候
+https://www.cnblogs.com/uestc-mm/p/7338244.html
+
+sudo aptitude install libgtk2.0-dev
+#找到降级方案
 
 # 下载好opencv 和opencv_contrib 版本号要一致
 cd ~/opencv_build/opencv
@@ -66,20 +88,9 @@ pkg-config --modversion opencv
 
 # cmakelist.txt
 set(OpenCV_DIR "~/opencv_build/opencv/build/installed/lib/cmake/opencv4")
-# 相关依赖
-sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-
-	 sudo apt-get install python3.5-dev python3-numpy libtbb2 libtbb-dev
-         sudo apt-get install python-dev python-numpy python3-dev python3-numpy
-
-	 sudo apt-get install libjpeg-dev libpng-dev libtiff5-dev libjasper-dev libdc1394-22-dev libeigen3-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libopenexr-dev libgstreamer-plugins-base1.0-dev libavutil-dev libavfilter-dev libavresample-dev
-
-
-	sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
-	sudo apt-get update
-	sudo apt-get install libjasper1 libjasper-dev
 
 # opencv安装遇到的问题
+
 #ImportError: /opt/ros/kinetic/lib/python2.7/dist-packages/cv2.so: undefined symbol: PyCObject_Type
 
 export PYTHONPATH=~/opencv_build/opencv/build/installed/lib/python3.5/dist-packages:$PYTHONPATH
@@ -96,6 +107,14 @@ export PYTHONPATH=~/opencv_build/opencv/build/installed/lib/python3.5/dist-packa
 	rm CMakeCache.txt
 # modules/xfeatures2d/src/boostdesc.cpp:653:37: fatal error: boostdesc_bgm.i: 没有那个文件或目
 	sudo cp -i ~/opencv3_cmake_files/*.i ~/opencv/opencv_contrib/modules/xfeatures2d/src/
+
+
+#: 没有那个文件或目录
+# #include "features2d/test/test_detectors_regression.impl.hpp"
+
+
+
+
 # /opt/opencv/release/modules/java_bindings_generator/gen/cpp/xfeatures2d.inl.hpp:12:10: fatal error: opencv2/xfeatures2d.hpp: 没有那个文件或目录#include "opencv2/xfeatures2d.hpp"
 	改成绝对路径
 

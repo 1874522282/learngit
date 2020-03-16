@@ -112,6 +112,11 @@ export PYTHONPATH=~/opencv_build/opencv/build/installed/lib/python3.5/dist-packa
 #: 没有那个文件或目录
 # #include "features2d/test/test_detectors_regression.impl.hpp"
 
+报错说在文件test_rotation_and_scale_invariance.cpp中找不到#include "xxxx/test_detectors_invariance.impl.hpp"，
+那么就在opencv-4.1.2/modules/features2d/test下去找test_detectors_invariance.impl.hpp文件，
+将其复制到opencv_contrib-4.1.2/modules/xfeatures2d/test目录，
+然后打开test_rotation_and_scale_invariance.cpp文件，
+修改#include "xxxx/test_detectors_invariance.impl.hpp"为#include "test_detectors_invariance.impl.hpp"即可
 
 
 
